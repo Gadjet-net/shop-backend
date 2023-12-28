@@ -33,7 +33,7 @@ class ProductSerializer(serializers.ModelSerializer):
     company = serializers.ReadOnlyField(source='company.title')
 
     class Meta:
-        model = Company
+        model = Product
         fields = '__all__'
 
 
@@ -41,12 +41,13 @@ class UsersSerializer(serializers.ModelSerializer):
     comments = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
     class Meta:
-        model = Company
+        model = Users
         fields = [
             'id',
             'login',
             'phone_number',
             'balance',
+            'comments'
         ]
 
 
@@ -54,5 +55,5 @@ class CommentsSerializer(serializers.ModelSerializer):
     user = serializers.ReadOnlyField(source='user.name')
 
     class Meta:
-        model = Company
+        model = Comments
         fields = '__all__'
