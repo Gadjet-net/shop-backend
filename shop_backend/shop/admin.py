@@ -1,4 +1,6 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
+
 from .models import *
 
 
@@ -11,7 +13,7 @@ class CategoryAdmin(admin.ModelAdmin):
 
 @admin.register(Subcategory)
 class SubcategoryAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title')
+    list_display = ('id', 'title', 'category')
     list_filter = ['title']
     search_fields = ['title']
 
@@ -28,15 +30,15 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = (
         'id',
         'title',
+        'image',
         'category',
         'subcategory',
         'company',
         'price',
         'discount',
         'in_stock',
-        'rating',
     )
-    list_filter = ['category', 'subcategory', 'company', 'rating']
+    list_filter = ['category', 'subcategory', 'company']
     search_fields = ['title', 'category', 'subcategory', 'company']
 
 
@@ -45,10 +47,11 @@ class UsersAdmin(admin.ModelAdmin):
     list_display = (
         'id',
         'login',
+        'username',
         'phone_number',
-        'balance',
+        'last_login'
     )
-    list_filter = ['login', 'phone_number']
+    list_filter = ['login', 'username', 'phone_number']
 
 
 @admin.register(Comments)
@@ -60,3 +63,13 @@ class CommentsAdmin(admin.ModelAdmin):
         'rating',
     )
     list_filter = ['title']
+
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'owner',
+        'purchase_amount',
+    )
+    list_filter = ['id', 'owner']

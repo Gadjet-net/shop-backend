@@ -46,7 +46,6 @@ class UsersSerializer(serializers.ModelSerializer):
             'id',
             'login',
             'phone_number',
-            'balance',
             'comments'
         ]
 
@@ -56,4 +55,13 @@ class CommentsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Comments
+        fields = '__all__'
+
+
+class OrderListSerializer(serializers.ModelSerializer):
+    owner = serializers.ReadOnlyField(source='owner.name')
+    products = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+
+    class Meta:
+        model = Order
         fields = '__all__'

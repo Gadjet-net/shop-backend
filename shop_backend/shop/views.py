@@ -1,8 +1,6 @@
-from django.shortcuts import render
 from rest_framework import generics
-
-from .models import *
 from .serializers import *
+from rest_framework.permissions import IsAuthenticated
 
 
 class CategoryList(generics.ListCreateAPIView):
@@ -58,8 +56,20 @@ class UsersDetail(generics.RetrieveUpdateDestroyAPIView):
 class CommentsList(generics.ListCreateAPIView):
     queryset = Comments.objects.all()
     serializer_class = CommentsSerializer
+    permission_classes = [IsAuthenticated]
 
 
 class CommentsDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Comments.objects.all()
+    serializer_class = CommentsSerializer
+
+
+class OrderList(generics.ListCreateAPIView):
+    queryset = Order.objects.all()
+    serializer_class = CommentsSerializer
+    permission_classes = [IsAuthenticated]
+
+
+class OrderDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Order.objects.all()
     serializer_class = CommentsSerializer
